@@ -3,16 +3,20 @@ import { useState, useEffect } from 'react-router-dom'
 
 export default function Vans () {
 
-  const[data, setData] = useState()
+  const[vans, setVans] = useState([])
 
   useEffect(() => {
     // fetch data
-    fetch('/api/vans')
+    fetch("/api/vans")
         .then(res => res.json())
-        .then(data => console.log(data))
+        .then(data => setVans(data.vans))
     }, [])
 
-  
+    console.log(vans)
+    return (
+      <h1>Vans page goes here</h1>
+      )
+    }
   // useEffect(() => {
   //   getData()
   // }, [])
@@ -58,7 +62,3 @@ export default function Vans () {
   //   .finally(()=> setLoading(false))
   // }, [])
 
-  return (
-    <h1>Vans page goes here</h1>
-    )
-  }
