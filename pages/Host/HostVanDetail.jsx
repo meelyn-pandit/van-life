@@ -1,31 +1,59 @@
 import React, { useState, useEffect } from 'react'
-import { useParams } from 'react-router-dom'
+import { Link, useParams, Outlet, NavLink } from 'react-router-dom'
 
 export default function HostVanDetail() {
-  const params = useParams()
-  console.log('HostVanDetails params ', params)
-  const [hostVan, setHostVan] = useState(null)
-  console.log('Van ', hostVan)
+
+  const activeStyles = {
+    fontWeight: "bold",
+    textDecoration: "underline",
+    color: "#161616"
+}
+
+  const [currentVan, setCurrentVan] = useState(null)
+  const { id } = useParams()
 
   useEffect(() => {
-    fetch(`/api/host/vans/${params.hostId}`)
+    fetch(`/api/host/vans/${id}`)
       .then(res => res.json())
-      .then(data => setVan(data.vans))
-      console.log('Vans Res', params.hostId)
-  }, [params.hostId])
+      .then(data => setCurrentVan(data.vans))
+      // console.log('Vans Res', params.hostId)
+  }, [id])
 
   return (
     <div className="van-detail-container">
-      {hostVan ? (
-        <div className="van-detail">
-          <img src={hostVan.imageUrl} />
-          <i className={`van-type ${hostVan.type} selected`}>{hostVan.type}</i>
-          <h2>{hostVan.name}</h2>
-          <p className="van-price"><span>${hostVan.price}</span>/day</p>
-          <p>{hostVan.description}</p>  
-          <button className="link-button">Rent this van</button>
-        </div>
+    <section>
+      <Link
+        to=".."
+        relative="path"
+        classname="back-button">Go Back to all Vans </Link>
+      {currentVan ? (
+        <div className="host-van-detail-layout-container">
+            <div className="host-van-detail">
+              <img src={currentVan.imageUrl} />
+              <i className={`van-type ${currentVan.type} selected`}>{currentVan.type}</i>
+              <h2>{currentVan.name}</h2>
+              <p className="van-price"><span>${currentVan.price}</span>/day</p>
+              <p>{currentVan.description}</p>  
+              <button className="link-button">Rent this van</button>
+            </div>
+            <nav className="host-van-detail-nav">
+              <NavLink
+                to="."
+                end
+                style={({isActive}) => isActive ? activeStyles : null}>
+                  Details</NavLink>
+              <NavLink
+                to="photos"
+                style={({isActive}) => isActive ? activeStyles : null}>
+                  Photos</NavLink>
+              <NavLink
+                to="pricing"
+                style={({isActive}) => isActive ? activeStyles : null}>Pricing</NavLink>
+            </nav>
+            <Outlet context={{ currentVan }}/>
+          </div>
       ) : <h2>Loading...</h2>}
+       </section>
     </div>
   ) 
 }

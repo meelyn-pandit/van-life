@@ -20,18 +20,21 @@ export default function HostLayout() {
         end
         >Dashboard</NavLink>
       <NavLink 
-        to="/host/income"
+        // to="/host/income" // absolute path
+        to="income" // relative path
         style={({isActive}) => isActive ? activeStyles : null}
         end
         >
           Income</NavLink>
       <NavLink
-        to="/host/vans"
+        // to="/host/vans" //absolute path
+        to="vans" // relative path
         style={({isActive}) => isActive ? activeStyles : null}
         end
         >Vans</NavLink>
       <NavLink 
-        to="/host/reviews"
+        // to="/host/reviews" // absolute path
+        to="reviews" //relative
         style={({isActive}) => isActive ? activeStyles : null}
         end
         >
