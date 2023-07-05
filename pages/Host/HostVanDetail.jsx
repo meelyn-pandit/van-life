@@ -26,13 +26,14 @@ export default function HostVanDetail() {
         to=".."
         relative="path"
         classname="back-button">Go Back to all Vans </Link>
+        
       {currentVan ? (
         <div className="host-van-detail-layout-container">
             <div className="host-van-detail">
               <img src={currentVan.imageUrl} />
               <i className={`van-type ${currentVan.type} selected`}>{currentVan.type}</i>
               <h2>{currentVan.name}</h2>
-              <p className="van-price"><span>${currentVan.price}</span>/day</p>
+              {/* <p className="van-price"><span>${currentVan.price}</span>/day</p> */}
               <p>{currentVan.description}</p>  
               <button className="link-button">Rent this van</button>
             </div>

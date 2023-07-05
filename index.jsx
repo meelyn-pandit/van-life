@@ -4,6 +4,7 @@ import { BrowserRouter, Routes, Route, NavLink } from "react-router-dom"
 import Home from "./pages/Home"
 import About from "./pages/About"
 import Vans from './pages/Vans';
+import Error from './pages/Error'
 import VanDetail from './pages/VanDetail'
 import ProductDetail from './pages/ProductDetail';
 import Layout from './components/Layout'
@@ -22,7 +23,7 @@ function App() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route element={<Layout />}>
+        <Route path="/" element={<Layout />}>
           <Route index element={<Home />} />
           <Route path="/about" element={<About />} />
 
@@ -42,8 +43,8 @@ function App() {
                 <Route path="pricing" element={<HostVanPricing />} />
                 <Route path="photos" element={<HostVanPhotos />} />
             </Route>
-           
           </Route>
+        <Route path="*" element={<Error />}/>
         </Route>
       </Routes>
     </BrowserRouter>
