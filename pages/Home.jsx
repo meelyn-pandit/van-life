@@ -1,7 +1,13 @@
 import React from "react"
-import { Link } from "react-router-dom"
+import { Link, useLoaderData } from "react-router-dom"
+
+export function loader() {
+    return 'The data is here'
+}
 
 export default function Home() {
+    const data = useLoaderData()
+    console.log(data)
     return (
         <div className="home-container">
             <h1>You got the travel plans, we got the travel vans.</h1>

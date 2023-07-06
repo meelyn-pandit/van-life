@@ -1,10 +1,11 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { createBrowserRouter, createRoutesFromElements, RouterProvider, Route, NavLink } from "react-router-dom"
-import Home from "./pages/Home"
+import Home, { loader as homePageLoader } from "./pages/Home"
 import About from "./pages/About"
-import Vans from './pages/Vans';
-import Error from './pages/Error'
+import Vans, { loader as vansPageLoader } from './pages/Vans';
+// import Error from './pages/Error'
+import Error from './components/Error'
 import VanDetail from './pages/VanDetail'
 import ProductDetail from './pages/ProductDetail';
 import Layout from './components/Layout'
@@ -24,12 +25,16 @@ function App() {
   const router = createBrowserRouter(
     createRoutesFromElements(
       <>
-        <Route path="/" element={<Layout />}>
-          <Route index element={<Home />} />
+        <Route path="/" element={<Layout />}
+                        errorElement={<Error />}>
+          <Route index element={<Home />}
+                       loader={homePageLoader} 
+                       errorElement={<Error />}/>
           <Route path="/about" element={<About />} />
 
           <Route path="/vans">
-            <Route index element={<Vans />} /> 
+            <Route index element={<Vans />}
+                         loader={vansPageLoader} /> 
             <Route path=":id" element={<VanDetail />} />
           </Route>
           {/* <Route path="/products/:productId" element={<ProductDetail />} /> */}
