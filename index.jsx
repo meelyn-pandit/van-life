@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import { BrowserRouter, Routes, Route, NavLink } from "react-router-dom"
+import { createBrowserRouter, createRoutesFromElements, RouterProvider, Route, NavLink } from "react-router-dom"
 import Home from "./pages/Home"
 import About from "./pages/About"
 import Vans from './pages/Vans';
@@ -20,9 +20,10 @@ import HostVanPhotos from './pages/Host/HostVanPhotos';
 import HostVanInfo from './pages/Host/HostVanInfo';
 
 function App() {
-  return (
-    <BrowserRouter>
-      <Routes>
+
+  const router = createBrowserRouter(
+    createRoutesFromElements(
+      <>
         <Route path="/" element={<Layout />}>
           <Route index element={<Home />} />
           <Route path="/about" element={<About />} />
@@ -46,8 +47,12 @@ function App() {
           </Route>
         <Route path="*" element={<Error />}/>
         </Route>
-      </Routes>
-    </BrowserRouter>
+      </>
+    )
+  )
+
+  return (
+    <RouterProvider router={router} />
   )
 }
 
