@@ -1,14 +1,24 @@
 import React, {useState, useEffect } from "react"
-import { Link } from 'react-router-dom'
+import { Link, useLoaderData } from 'react-router-dom'
+import '../../api'
+import { getHostVans } from "../../api"
+import { requireAuth } from "../../utils"
+
+export async function loader() {
+  await requireAuth()
+  return getHostVans()
+}
 
 export default function HostVans () {
-  const[hostVans, setHostVans] = useState([])
-  useEffect(() => {
-    // fetch data
-    fetch("/api/host/vans")
-        .then(res => res.json())
-        .then(data => setHostVans(data.vans))
-    }, [])
+  const hostVans = useLoaderData()
+  // const [hostVans, setHostVans] = useState([])
+
+  // useEffect(() => {
+  //   // fetch data
+  //   fetch("/api/host/vans")
+  //       .then(res => res.json())
+  //       .then(data => setHostVans(data.vans))
+  //   }, [])
 
     const hostVansEls = hostVans.map(van => (
         <div key={van.id} className="van-tile">

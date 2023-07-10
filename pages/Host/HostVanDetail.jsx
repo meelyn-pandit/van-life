@@ -1,5 +1,14 @@
 import React, { useState, useEffect } from 'react'
-import { Link, useParams, Outlet, NavLink } from 'react-router-dom'
+import { Link, useParams, Outlet, NavLink, useLoaderData } from 'react-router-dom'
+import '../../api'
+import { getHostVans } from '../../api'
+import { requireAuth } from "../../utils"
+
+
+export async function loader({ params }) {
+  await requireAuth()
+  return getHostVans(params.id)
+}
 
 export default function HostVanDetail() {
 
@@ -9,15 +18,16 @@ export default function HostVanDetail() {
     color: "#161616"
 }
 
-  const [currentVan, setCurrentVan] = useState(null)
+  const currentVan = useLoaderData()
+  // const [currentVan, setCurrentVan] = useState(null)
   const { id } = useParams()
 
-  useEffect(() => {
-    fetch(`/api/host/vans/${id}`)
-      .then(res => res.json())
-      .then(data => setCurrentVan(data.vans))
-      // console.log('Vans Res', params.hostId)
-  }, [id])
+  // useEffect(() => {
+  //   fetch(`/api/host/vans/${id}`)
+  //     .then(res => res.json())
+  //     .then(data => setCurrentVan(data.vans))
+  //     // console.log('Vans Res', params.hostId)
+  // }, [id])
 
   return (
     <div className="van-detail-container">
